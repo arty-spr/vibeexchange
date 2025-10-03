@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { marketAPI, tradingAPI } from '../services/api';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import TradingViewChart from '../components/TradingViewChart';
+import TutorialTooltip from '../components/TutorialTooltip';
 
 const Trading = () => {
   const { user, refreshUser } = useAuth();
@@ -86,12 +88,44 @@ const Trading = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Trading</h1>
+      <div className="relative inline-block mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Trading</h1>
+        <TutorialTooltip
+          stepId="trading-intro"
+          title="Welcome to Trading!"
+          description="This is where you can buy and sell cryptocurrencies. Start by selecting a cryptocurrency from the market prices list, then choose whether to buy or sell."
+          position="bottom"
+        />
+      </div>
+
+      <div className="mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
+          <div className="relative inline-block mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {prices[selectedCrypto]?.name} Chart
+            </h2>
+            <TutorialTooltip
+              stepId="price-chart"
+              title="Price Chart"
+              description="This is a live price chart from TradingView. Use it to analyze price movements and trends before making trading decisions."
+              position="bottom"
+            />
+          </div>
+          <TradingViewChart symbol={selectedCrypto} />
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Market Prices */}
         <div className="lg:col-span-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Market Prices</h2>
+          <div className="relative inline-block mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Market Prices</h2>
+            <TutorialTooltip
+              stepId="market-prices"
+              title="Market Prices"
+              description="Here you can see current prices for all available cryptocurrencies. Click on any crypto to select it for trading."
+              position="bottom"
+            />
+          </div>
           <div className="space-y-3">
             {Object.values(prices).map((crypto) => (
               <button
@@ -129,14 +163,12 @@ const Trading = () => {
           </div>
         </div>
 
-        {/* Trading Form */}
         <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             Trade {prices[selectedCrypto]?.name}
           </h2>
 
-          {/* Trade Type Selector */}
-          <div className="flex gap-2 mb-6">
+          <div className="relative flex gap-2 mb-6">
             <button
               onClick={() => setTradeType('BUY')}
               className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${
@@ -157,9 +189,14 @@ const Trading = () => {
             >
               Sell
             </button>
+            <TutorialTooltip
+              stepId="buy-sell-buttons"
+              title="Buy or Sell"
+              description="Click 'Buy' to purchase cryptocurrency with your USD balance, or 'Sell' to sell your cryptocurrency holdings for USD."
+              position="bottom"
+            />
           </div>
 
-          {/* Message */}
           {message.text && (
             <div className={`mb-6 p-4 rounded-lg ${
               message.type === 'success' 
@@ -171,7 +208,7 @@ const Trading = () => {
           )}
 
           <form onSubmit={handleTrade}>
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Amount ({selectedCrypto})
               </label>
@@ -190,10 +227,15 @@ const Trading = () => {
                   Available: {availableAmount.toFixed(8)} {selectedCrypto}
                 </p>
               )}
+              <TutorialTooltip
+                stepId="amount-input"
+                title="Enter Amount"
+                description="Enter how much cryptocurrency you want to buy or sell. Make sure you have enough balance."
+                position="top"
+              />
             </div>
 
-            {/* Trade Summary */}
-            <div className="bg-gray-50 dark:bg-gray-750 rounded-lg p-4 mb-6 space-y-2 border border-gray-200 dark:border-gray-700">
+            <div className="bg-gray-50 dark:bg-gray-750 rounded-lg p-4 mb-6 space-y-2 border border-gray-200 dark:border-gray-700 relative">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600 dark:text-gray-400">Price per {selectedCrypto}:</span>
                 <span className="font-medium text-gray-900 dark:text-white">${currentPrice.toLocaleString()}</span>
@@ -210,6 +252,12 @@ const Trading = () => {
                 <span className="text-gray-900 dark:text-white">Total:</span>
                 <span className="text-gray-900 dark:text-white">${totalWithFee.toFixed(2)}</span>
               </div>
+              <TutorialTooltip
+                stepId="trade-summary"
+                title="Trade Summary"
+                description="This shows a breakdown of your trade. The fee is 0.1% of the total value. Review carefully before confirming."
+                position="top"
+              />
             </div>
 
             <button
@@ -225,7 +273,6 @@ const Trading = () => {
             </button>
           </form>
 
-          {/* Account Info */}
           <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
             <div className="flex justify-between text-sm">
               <span className="text-gray-600 dark:text-gray-400">Available Balance:</span>

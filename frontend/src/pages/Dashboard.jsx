@@ -93,22 +93,25 @@ const Dashboard = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.values(prices).map((crypto) => (
-                <div key={crypto.symbol} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-750">
-                  <div className="flex items-center justify-between mb-2">
+                <div 
+                  key={crypto.symbol} 
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-all bg-white dark:bg-gray-900"
+                >
+                  <div className="flex items-center justify-between mb-3">
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-white">{crypto.symbol}</h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{crypto.name}</p>
+                      <h3 className="font-bold text-lg text-gray-900 dark:text-white">{crypto.symbol}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{crypto.name}</p>
                     </div>
                     {crypto.change24h >= 0 ? (
-                      <TrendingUp className="h-5 w-5 text-green-500 dark:text-green-400" />
+                      <TrendingUp className="h-6 w-6 text-green-500 dark:text-green-400" />
                     ) : (
-                      <TrendingDown className="h-5 w-5 text-red-500 dark:text-red-400" />
+                      <TrendingDown className="h-6 w-6 text-red-500 dark:text-red-400" />
                     )}
                   </div>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                    ${crypto.price.toLocaleString()}
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                    ${crypto.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </p>
-                  <p className={`text-sm mt-1 ${crypto.change24h >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                  <p className={`text-sm font-medium ${crypto.change24h >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                     {crypto.change24h >= 0 ? '+' : ''}{crypto.change24h.toFixed(2)}%
                   </p>
                 </div>
