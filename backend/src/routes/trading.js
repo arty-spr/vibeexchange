@@ -19,4 +19,4 @@ router.post('/buy', validateTrade, buyCrypto);
 router.post('/sell', validateTrade, sellCrypto);
 router.get('/transactions', getTransactions);
 
-export default router;
+export { router as default };
