@@ -8,7 +8,14 @@ export const SUPPORTED_CRYPTOS = [
   { id: 'ethereum', symbol: 'ETH', name: 'Ethereum' },
   { id: 'tether', symbol: 'USDT', name: 'Tether' },
   { id: 'binancecoin', symbol: 'BNB', name: 'Binance Coin' },
-  { id: 'cardano', symbol: 'ADA', name: 'Cardano' }
+  { id: 'cardano', symbol: 'ADA', name: 'Cardano' },
+  { id: 'solana', symbol: 'SOL', name: 'Solana' },
+  { id: 'ripple', symbol: 'XRP', name: 'Ripple' },
+  { id: 'polkadot', symbol: 'DOT', name: 'Polkadot' },
+  { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin' },
+  { id: 'avalanche-2', symbol: 'AVAX', name: 'Avalanche' },
+  { id: 'chainlink', symbol: 'LINK', name: 'Chainlink' },
+  { id: 'polygon', symbol: 'MATIC', name: 'Polygon' }
 ];
 
 // Cache for prices (to avoid rate limiting)

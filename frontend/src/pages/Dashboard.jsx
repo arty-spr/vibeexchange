@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchPrices();
-    const interval = setInterval(fetchPrices, 30000); // Update every 30 seconds
+    const interval = setInterval(fetchPrices, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -41,76 +41,74 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome back, {user?.name}!</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">Welcome back, {user?.name}!</p>
       </div>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Cash Balance</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Cash Balance</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
                 ${user?.balance?.toFixed(2)}
               </p>
             </div>
-            <Wallet className="h-12 w-12 text-green-500" />
+            <Wallet className="h-12 w-12 text-green-500 dark:text-green-400" />
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Portfolio Value</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Portfolio Value</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
                 ${portfolioValue.toFixed(2)}
               </p>
             </div>
-            <Activity className="h-12 w-12 text-blue-500" />
+            <Activity className="h-12 w-12 text-blue-500 dark:text-blue-400" />
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-200 dark:border-gray-700 transition-colors">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Value</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Total Value</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
                 ${totalValue.toFixed(2)}
               </p>
             </div>
-            <TrendingUp className="h-12 w-12 text-purple-500" />
+            <TrendingUp className="h-12 w-12 text-purple-500 dark:text-purple-400" />
           </div>
         </div>
       </div>
 
-      {/* Market Overview */}
-      <div className="bg-white rounded-lg shadow mb-8">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Market Overview</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-8 border border-gray-200 dark:border-gray-700 transition-colors">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Market Overview</h2>
         </div>
         <div className="p-6">
           {loading ? (
-            <p className="text-center text-gray-500">Loading prices...</p>
+            <p className="text-center text-gray-500 dark:text-gray-400">Loading prices...</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.values(prices).map((crypto) => (
-                <div key={crypto.symbol} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div key={crypto.symbol} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-750">
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <h3 className="font-bold text-gray-900">{crypto.symbol}</h3>
-                      <p className="text-xs text-gray-500">{crypto.name}</p>
+                      <h3 className="font-bold text-gray-900 dark:text-white">{crypto.symbol}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{crypto.name}</p>
                     </div>
                     {crypto.change24h >= 0 ? (
-                      <TrendingUp className="h-5 w-5 text-green-500" />
+                      <TrendingUp className="h-5 w-5 text-green-500 dark:text-green-400" />
                     ) : (
-                      <TrendingDown className="h-5 w-5 text-red-500" />
+                      <TrendingDown className="h-5 w-5 text-red-500 dark:text-red-400" />
                     )}
                   </div>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     ${crypto.price.toLocaleString()}
                   </p>
-                  <p className={`text-sm mt-1 ${crypto.change24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <p className={`text-sm mt-1 ${crypto.change24h >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                     {crypto.change24h >= 0 ? '+' : ''}{crypto.change24h.toFixed(2)}%
                   </p>
                 </div>
@@ -120,21 +118,20 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Quick Actions</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 transition-colors">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Quick Actions</h2>
         </div>
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
             to="/trading"
-            className="flex items-center justify-center px-6 py-4 border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors font-medium"
+            className="flex items-center justify-center px-6 py-4 border-2 border-primary-600 dark:border-primary-500 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-medium"
           >
             Start Trading
           </Link>
           <Link
             to="/portfolio"
-            className="flex items-center justify-center px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            className="flex items-center justify-center px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
           >
             View Portfolio
           </Link>
