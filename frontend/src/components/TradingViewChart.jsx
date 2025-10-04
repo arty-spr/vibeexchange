@@ -31,7 +31,8 @@ const TradingViewChart = ({ symbol = 'BTC' }) => {
     script.onload = () => {
       if (window.TradingView) {
         new window.TradingView.widget({
-          autosize: true,
+          width: '100%',
+          height: 600,
           symbol: symbolMap[symbol] || 'BINANCE:BTCUSDT',
           interval: '60',
           timezone: 'Etc/UTC',
@@ -60,7 +61,7 @@ const TradingViewChart = ({ symbol = 'BTC' }) => {
   }, [symbol, isDark]);
 
   return (
-    <div className="w-full h-full min-h-[400px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+    <div className="w-full h-[600px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
       <div id={`tradingview_${symbol}`} ref={containerRef} className="w-full h-full" />
     </div>
   );
